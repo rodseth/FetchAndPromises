@@ -10,13 +10,24 @@ document.getElementById("all-content").style.display = "block"
 */
 
 /* JS For Exercise-1 below */
+function getAllJokes(){
 const jokes = jokeFacade.getJokes();
 let jokeList = jokes.map(joke => `<li>${joke}</li>`).join("\n");
 document.getElementById("jokes").innerHTML = jokeList;
+}
+
+getAllJokes()
+
+function getJokeById(event){
+  event.preventDefault()
+  let ID = document.getElementById("jokeID").value
+  let joke = jokeFacade.getJokeById(ID);
+  document.getElementById("showJoke").innerHTML = joke;
+}
+
+ document.getElementById("getJoke").addEventListener("click", getJokeById);
 
 /* JS For Exercise-2 below */
-
-
 
 /* JS For Exercise-3 below */
 
