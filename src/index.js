@@ -8,26 +8,48 @@ document.getElementById("all-content").style.display = "block"
 /* 
   Add your JavaScript for all exercises Below or in separate js-files, which you must the import above
 */
-
 /* JS For Exercise-1 below */
-function getAllJokes(){
-const jokes = jokeFacade.getJokes();
-let jokeList = jokes.map(joke => `<li>${joke}</li>`).join("\n");
-document.getElementById("jokes").innerHTML = jokeList;
+function getAllJokes() {
+  const jokes = jokeFacade.getJokes();
+  let jokeList = jokes.map(joke => `<li>${joke}</li>`).join("\n");
+  document.getElementById("jokes").innerHTML = jokeList;
 }
 
 getAllJokes()
 
-function getJokeById(event){
+function getJokeById(event) {
   event.preventDefault()
   let ID = document.getElementById("jokeID").value
   let joke = jokeFacade.getJokeById(ID);
   document.getElementById("showJoke").innerHTML = joke;
 }
 
- document.getElementById("getJoke").addEventListener("click", getJokeById);
+document.getElementById("getJoke").addEventListener("click", getJokeById);
+document.getElementById("addJoke").addEventListener("click", addJoke);
 
-/* JS For Exercise-2 below */
+function addJoke(event) {
+  event.preventDefault()
+  let jokeToAdd = document.getElementById("jokeID").value;
+  jokeFacade.addJoke(jokeToAdd);
+  getAllJokes();
+}
+
+
+/* JS For fExercise-2 below */
+function getChuckJoke() {
+  fetch("https://api.chucknorris.io/jokes/random")
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      document.getElementById("chuckJoke").innerHTML = data.value;
+
+    });
+}
+getChuckJoke();
+
+
+document.getElementById("getChuckJoke").addEventListener("click", getChuckJoke);
 
 /* JS For Exercise-3 below */
 
@@ -57,6 +79,4 @@ function menuItemClicked(evt) {
 }
 document.getElementById("menu").onclick = menuItemClicked;
 hideAllShowOne("about_html");
-
-
 

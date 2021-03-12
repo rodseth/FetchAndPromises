@@ -15,18 +15,25 @@ function addJoke(joke) {
 }
 
 function getJokeById(i) {
-  return jokes[i];
+  if (i < jokes.length && i > 0) {
+    return jokes[i];
+  }
+  return "There is no joke with that Id"
+
 }
 
 function getJokes() {
   return jokes;
 }
 
+
+
 /* Make sure you understand what we create here, it involves VITAL JavaScript knowledge */
 const jokeFacade = {
   addJoke,
   getJokeById,
   getJokes
+
 }
 
 
