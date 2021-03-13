@@ -2,6 +2,7 @@ import "./style.css"
 import "bootstrap/dist/css/bootstrap.css"
 import "./jokeFacade"
 import jokeFacade from "./jokeFacade"
+import userFacade from "./userFacade"
 
 document.getElementById("all-content").style.display = "block"
 
@@ -52,8 +53,50 @@ getChuckJoke();
 document.getElementById("getChuckJoke").addEventListener("click", getChuckJoke);
 
 /* JS For Exercise-3 below */
+function getAllUsers() {
+  userFacade.getUsers()
+    .then(users => {
+      const userRows = users.map(user => `
+      <tr>
+        <td>${user.id}</td>
+        <td>${user.name}</td>
+        <td>${user.age}</td>
+        <td>${user.gender}</td>
+        <td>${user.email}</td>
+      </tr>` )
+      const userRowAsString = userRows.join("")
+      document.getElementById("allUserRows").innerHTML = userRowAsString;
+    });
+}
+
+const usersURL = "http://localhost:3333/api/users"
+function addUser() {
+  let newName = document.getElementById("newName").value;
+  let newAge = document.getElementById("newAge").value;
+  let newGender = document.getElementById("newGender").value;
+  let newEmail = document.getElementById("newEmail").value;
+
+  let newUser = {
+    method: "POST",
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      age: newAge,
+      name: newName,
+      gender: newGender,
+      email: newEmail
+    })
+  };
+  fetch(usersURL, newUser);
+
+  getAllUsers();
+
+}
 
 
+document.getElementById("addUser").addEventListener("click", addUser);
 /* 
 Do NOT focus on the code below, UNLESS you want to use this code for something different than
 the Period2-week2-day3 Exercises
